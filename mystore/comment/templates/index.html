@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Lista de comentarios</h2>
+    <a href="{% url 'comment:add' %}" target="_blank" >Add</a>
+
+    {% for comment in comments %}
+        <p>{{ comment.text }}</p>
+        <br>
+        <p>{{ comment.date_posted }}</p>
+
+        <a href="{% url 'comment:update_comment' comment.id %}">Editar</a>
+        
+        <form action="{% url 'comment:delete_comment' comment.id %}" method="POST">
+            {% csrf_token %}
+        <input type="submit" value="Delete">
+
+        </form>
+    {% endfor %}
+
+    <nav>
+        <ul class="paginator justify-content-center">
+            {% if comments.has_previous %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ comments.previous_page_number }}">Prev</a>
+                </li>
+            
+            {% endif %}
+
+            <li class="page-item">
+                {% for i in comments.paginator.page_range %}
+                    <a class="page-link" href="?page={{ i }}"></a>
+                    {{i}}
+                {% endfor %}
+            </li>
+            
+            {% if comments.has_next %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ comments.next_page_number }}">Next</a>
+                </li>
+            
+            {% endif %}
+            
+        </ul>
+    </nav>
+
+    
+</body>
+</html>
