@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 
@@ -29,3 +29,7 @@ class Element(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def clean(self):
+        if self.price < 0:
+            raise ValidationError('Price cannot be 0')

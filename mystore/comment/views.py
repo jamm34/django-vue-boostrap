@@ -17,7 +17,7 @@ def list_comment(request):
 def index(request):
     comments = Comment.objects.all()
     #comments = get_list_or_404(Comment, pk__gt=14)
-    paginator = Paginator(comments, 10)
+    paginator = Paginator(comments, 5)
     page_number = request.GET.get('page')
     comments_page = paginator.get_page(page_number)
 
