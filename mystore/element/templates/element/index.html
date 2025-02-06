@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ndex</title>
+</head>
+<body>
+<a href="/elements/add" target="_blank" rel="noopener noreferrer">Create</a>
+    <table>
+        <tr>
+
+            <th>Title</th>
+            <th>Category</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Actions</th>
+
+        </tr>
+    {% for e in elements %}
+    <tr>
+        <td>{{e.title}}</td>
+        <td>{{e.category.title}}</td>
+        <td>{{e.type}}</td>
+        <td>{{e.price}}</td>
+        <td>{{e.created}}</td>
+        <td>
+            <a href="" class="btn btn-view">Ver</a>
+            <a href="" class="btn btn-edit">Editar</a>
+    </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<nav>
+    <ul class="paginator justify-content-center">
+        {% if elements.has_previous %}
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ elements.previous_page_number }}">Prev</a>
+            </li>
+        
+        {% endif %}
+
+        <li class="page-item">
+            {% for i in elements.paginator.page_range %}
+                <a class="page-link" href="?page={{ i }}"></a>
+                {{i}}
+            {% endfor %}
+        </li>
+        
+        {% if elements.has_next %}
+
+            <li class="page-item">
+                <a class="page-link" href="?page={{ elements.next_page_number }}">Next</a>
+            </li>
+        
+        {% endif %}
+        
+    </ul>
+</nav>
+</body>
+</html>

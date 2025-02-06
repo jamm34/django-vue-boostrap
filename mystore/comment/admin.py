@@ -18,6 +18,4 @@ class CommentAdmin(admin.ModelAdmin):
     #exclude = ('element',)
     pass
 
-
 admin.site.register(Comment, CommentAdmin)
-
