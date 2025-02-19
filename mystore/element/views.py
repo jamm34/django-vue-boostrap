@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import request
-from .forms import ElementForm, ElementModelForm
+from .forms import ElementForm #, ElementModelForm
 from .models import Element
 from django.core.paginator import Paginator
 
@@ -13,11 +13,11 @@ def add(request):
             element.title = form.cleaned_data['title']
             element.slug = form.cleaned_data['slug']
             element.description = form.cleaned_data['description']
-           # element.price = form.cleaned_data['price']
+           #element.price = form.cleaned_data['price']
             element.category = form.cleaned_data['category']
             element.type = form.cleaned_data['type']
             element.save()
-        #return redirect('elements:index')
+        return redirect('element:index')
     else:
         form = ElementForm()
     
@@ -25,16 +25,16 @@ def add(request):
 
 
 
-def add2(request):
-    if request.method == 'POST':
-        form = ElementModelForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = ElementModelForm()
+# def add2(request):
+#     if request.method == 'POST':
+#         form = ElementModelForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/')
+#     else:
+#         form = ElementModelForm()
     
-    return render(request, 'element/add.html', {'form': form})
+#     return render(request, 'element/add.html', {'form': form})
 
 
 

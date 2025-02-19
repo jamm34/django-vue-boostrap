@@ -1,16 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
 
-        <button type="submit">Send</button>
-    </form>
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add elements</h1>
+                    <button type="button" class="btn-close" onclick="history.back();" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+                </div>
+                <div class="modal-body">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <div>
+                            <strong>{{ field.label }}:</strong> {{ error }}
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form class="row g-3" method="post">
+                        {% csrf_token %}
+                        <div class="col-12">
+                            <table class="table table-bordered table-hover table-sm">
+                                <tbody>
+                                    <!-- Campo: Title -->
+                                    <tr>
+                                        <th scope="row">{{ form.title.label }}</th>
+                                        <td>{{ form.title }}</td>
+                                    </tr>
+                                    <!-- Campo: Slug -->
+                                    <tr>
+                                        <th scope="row">{{ form.slug.label }}</th>
+                                        <td>{{ form.slug }}</td>
+                                    </tr>
+                                    <!-- Campo: Description -->
+                                    <tr>
+                                        <th scope="row">{{ form.description.label }}</th>
+                                        <td>{{ form.description }}</td>
+                                    </tr>
+                                    <!-- Campo: Price -->
+                                    <tr>
+                                        <th scope="row">{{ form.price.label }}</th>
+                                        <td>{{ form.price }}</td>
+                                    </tr>
+                                    <!-- Campo: Type -->
+                                    <tr>
+                                        <th scope="row">{{ form.type.label }}</th>
+                                        <td>{{ form.type }}</td>
+                                    </tr>
+                                    <!-- Campo: Category -->
+                                    <tr>
+                                        <th scope="row">{{ form.category.label }}</th>
+                                        <td>{{ form.category }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluye el JavaScript de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    <!-- Script para abrir el modal automáticamente -->
+    <script>
+        // Verifica si el parámetro "openModal" está en la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const openModal = urlParams.get('openModal');
+
+        // Si el parámetro está presente, abre el modal
+        if (openModal === 'true') {
+            const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            myModal.show();
+        }
+    </script>
 </body>
+
 </html>
